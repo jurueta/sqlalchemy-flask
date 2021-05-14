@@ -2,17 +2,18 @@ from flask import Flask, make_response, jsonify
 from sqlalchemy import create_engine, select
 from sqlalchemy.orm import Session
 from models import Article, Category, User
+from conf import USERDB, PASSDB, HOSTDB, DBNAME
 
 app = Flask(__name__)
 
 @app.route('/api/v1/category', methods=['GET'])
 def category():
-    engine = create_engine("mysql+mysqldb://root:finsocial123@localhost/articulos")
+    engine = create_engine(f"mysql+mysqldb://{USERDB}:{PASSDB}@{HOSTDB}/{DBNAME}")
     with engine.connect() as conn:
         session = Session(engine)
         result = session.execute(select(Category)).all()
+        session.close()
         categories = list()
-        print(result)
         for i in result:
             categories.append({'nombre': i[0].nombre})
         
@@ -26,12 +27,12 @@ def category():
 
 @app.route('/api/v1/user', methods=['GET'])
 def user():
-    engine = create_engine("mysql+mysqldb://root:finsocial123@localhost/articulos")
+    engine = create_engine(f"mysql+mysqldb://{USERDB}:{PASSDB}@{HOSTDB}/{DBNAME}")
     with engine.connect() as conn:
         session = Session(engine)
         result = session.execute(select(User)).all()
+        session.close()
         users = list()
-        print(result)
         for i in result:
             users.append({
                 'nombre': i[0].nombre,
@@ -48,12 +49,12 @@ def user():
 
 @app.route('/api/v1/article', methods=['GET'])
 def article():
-    engine = create_engine("mysql+mysqldb://root:finsocial123@localhost/articulos")
+    engine = create_engine(f"mysql+mysqldb://{USERDB}:{PASSDB}@{HOSTDB}/{DBNAME}")
     with engine.connect() as conn:
         session = Session(engine)
         result = session.execute(select(Article)).all()
+        session.close()
         articles = list()
-        print(result)
         for i in result:
             articles.append({
                 'nombre': i[0].nombre,
