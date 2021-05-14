@@ -1,5 +1,6 @@
 from sqlalchemy import Table, Column, Integer, String, ForeignKey, BigInteger, DECIMAL, Text, create_engine
 from sqlalchemy.orm import declarative_base
+from conf import USERDB, PASSDB, HOSTDB, DBNAME
 
 Base = declarative_base()
 
@@ -42,7 +43,7 @@ Column('cantidad', Integer, nullable=False),
 )
 
 if __name__ == '__main__':
-    engine = create_engine("mysql+mysqldb://root:finsocial123@localhost/articulos")
+    engine = create_engine(f"mysql+mysqldb://{USERDB}:{PASSDB}@{HOSTDB}/{DBNAME}")
     with engine.connect() as conn:
         Base.metadata.create_all(engine)
         print("Create Tables")
@@ -50,7 +51,6 @@ if __name__ == '__main__':
 #Example with Simple Constraints
 
 # def migrate():
-#     engine = create_engine("mysql+mysqldb://root:finsocial123@localhost/articulos")
 
 #     with engine.connect() as conn:
 #         metadata = Metadata()

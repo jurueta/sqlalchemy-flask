@@ -1,0 +1,4 @@
+USERDB = ""
+PASSDB = ""
+HOSTDB = ""
+DBNAME = ""

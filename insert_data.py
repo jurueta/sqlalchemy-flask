@@ -1,6 +1,7 @@
 from models import Article, Category, User
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
+from conf import USERDB, PASSDB, HOSTDB, DBNAME
 
 def insert(session):
     user_urueta = User(username="urueta01", password="21121999", nombre="Jesus Urueta", email="sistemas22@red5g.co", admin=1)
@@ -43,7 +44,7 @@ def insert(session):
 
 
 if __name__ == '__main__':
-    engine = create_engine("mysql+mysqldb://root:finsocial123@localhost/articulos")
+    engine = create_engine(f"mysql+mysqldb://{USERDB}:{PASSDB}@{HOSTDB}/{DBNAME}")
     with engine.connect() as conn:
         session = Session(engine)
         insert(session)
