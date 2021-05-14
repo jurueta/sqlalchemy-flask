@@ -11,7 +11,7 @@ class User(Base):
     password = Column(String(50))
     nombre = Column(String(100))
     email = Column(String(100))
-    admin = Column(String(100))
+    admin = Column(Integer)
 
     def __repr__(self):
         return f"User(id={self.id}, username={self.username}"
